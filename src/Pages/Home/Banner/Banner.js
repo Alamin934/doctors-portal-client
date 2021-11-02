@@ -14,9 +14,9 @@ const bannerBg = {
 }
 const Banner = () => {
     return (
-        <Box style={bannerBg} sx={{ flexGrow: 1, py: 14 }}>
+        <Box style={bannerBg} sx={{ flexGrow: 1, py: 18 }}>
             <Container>
-                <Grid container spacing={2}>
+                <Grid container spacing={2} sx={{ mb: 6 }}>
                     <Grid item xs={12} md={6} sx={{ textAlign: 'left', alignItems: 'center', display: 'flex' }}>
                         <Box>
                             <Typography variant="h4" component="div" sx={{ color: '#001E3C', fontWeight: 'bold' }}>
