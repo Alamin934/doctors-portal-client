@@ -2,23 +2,39 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './Pages/Home/Home/Home';
 import Appointment from './Pages/Appointment/Appointment/Appointment';
+import Login from './Pages/Login/Login/Login';
+import Registar from './Pages/Login/Registar/Registar';
+import AuthProvider from './contexts/AuthProvider/AuthProvider';
+import PrivateRoute from './Pages/PrivateRoute/PrivateRoute';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="/home">
-            <Home />
-          </Route>
-          <Route path="/appointment">
-            <Appointment />
-          </Route>
-        </Switch>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/home">
+              <Home />
+            </Route>
+            <PrivateRoute path="/appointment">
+              <Appointment />
+            </PrivateRoute>
+            <PrivateRoute path="/dashboard">
+              <Dashboard />
+            </PrivateRoute>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/registar">
+              <Registar />
+            </Route>
+          </Switch>
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
