@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import initializeFirebase from "../FireBase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, signOut } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, updateProfile, getIdToken, signOut } from "firebase/auth";
 //initialize app
 initializeFirebase();
 const useFirebase = () => {
@@ -8,6 +8,8 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
+    const [admin, setAdmin] = useState(false);
+    const [token, setToken] = useState('');
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
@@ -71,6 +73,31 @@ const useFirebase = () => {
     };
 
 
+    //user observe state
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // const uid = user.uid;
+                setUser(user);
+                getIdToken(user)
+                    .then(idToken => {
+                        setToken(idToken)
+                    })
+            } else {
+                setUser({})
+            }
+            setIsLoading(false)
+        });
+        return () => unsubscribe;
+    }, [auth]);
+
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
+
+
     const logOut = () => {
         setIsLoading(true)
         signOut(auth).then(() => {
@@ -80,21 +107,6 @@ const useFirebase = () => {
         })
             .finally(() => setIsLoading(false));
     };
-
-
-    //user observe state
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                // const uid = user.uid;
-                setUser(user);
-            } else {
-                setUser({})
-            }
-            setIsLoading(false)
-        });
-        return () => unsubscribe;
-    }, [auth]);
 
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
@@ -112,6 +124,8 @@ const useFirebase = () => {
         user,
         isLoading,
         authError,
+        admin,
+        token,
         registerUser,
         logOut,
         loginUser,

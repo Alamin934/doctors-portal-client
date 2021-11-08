@@ -24,7 +24,6 @@ const Login = () => {
 
         loginUser(loginData.email, loginData.password, history, location)
 
-
         e.preventDefault();
     };
 

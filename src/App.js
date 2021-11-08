@@ -5,7 +5,7 @@ import Appointment from './Pages/Appointment/Appointment/Appointment';
 import Login from './Pages/Login/Login/Login';
 import Registar from './Pages/Login/Registar/Registar';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
-import PrivateRoute from './Pages/PrivateRoute/PrivateRoute';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 
 function App() {
