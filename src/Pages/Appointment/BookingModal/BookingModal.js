@@ -43,7 +43,7 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
             serviceName: name,
             date: date.toLocaleDateString()
         }
-        fetch('http://localhost:5000/appointment', {
+        fetch('https://shielded-sea-24899.herokuapp.com/appointment', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
