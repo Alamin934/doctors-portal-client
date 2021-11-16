@@ -27,6 +27,7 @@ import MakeAdmin from '../MakeAdmin/MakeAdmin';
 import AddDoctor from '../AddDoctor/AddDoctor';
 import useAuth from '../../../hooks/useAuth';
 import AdminRoute from '../../Login/AdminRoute/AdminRoute';
+import Payment from '../Payment/Payment';
 const drawerWidth = 200;
 
 function Dashboard(props) {
@@ -45,12 +46,17 @@ function Dashboard(props) {
         <div>
             <Toolbar />
             <Divider />
-            <Link to='/appointment' underline="none">
-                <Button variant="contained">Appointment</Button>
-            </Link>
-            <Link to={`${url}/dashboard`} underline="none">
-                <Button color="inherit">Dashboard</Button>
-            </Link>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Link to='/appointment' underline="none">
+                    <Button variant="contained">Appointment</Button>
+                </Link>
+                <Link to={`${url}/dashboard`} underline="none">
+                    <Button color="inherit">Dashboard</Button>
+                </Link>
+                <Link to={`${url}/payment`} underline="none">
+                    <Button color="inherit">Payment</Button>
+                </Link>
+            </Box>
             {admin && <Box>
                 <Link to={`${url}/makeAdmin`}>
                     <Button color="inherit">Make Admin</Button>
@@ -143,6 +149,9 @@ function Dashboard(props) {
                     </Route>
                     <Route path={`${path}/dashboard`}>
                         <DashboardHome></DashboardHome>
+                    </Route>
+                    <Route path={`${path}/payment/:appointmentId`}>
+                        <Payment></Payment>
                     </Route>
                     <AdminRoute path={`${path}/makeAdmin`}>
                         <MakeAdmin></MakeAdmin>
