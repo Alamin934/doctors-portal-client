@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react';
 import Doctor from '../Doctor/Doctor';
 
 const Doctors = () => {
-    const [doctors, setDoctors] = useState([]);
+    // const [doctors, setDoctors] = useState([]);
 
-    useEffect(() => {
-        fetch('https://shielded-sea-24899.herokuapp.com/doctors')
-            .then(res => res.json())
-            .then(data => setDoctors(data))
-    }, [])
+    // useEffect(() => {
+    //     fetch('https://shielded-sea-24899.herokuapp.com/doctors')
+    //         .then(res => res.json())
+    //         .then(data => setDoctors(data))
+    // }, [])
     return (
         <div>
-            <h2>Our Doctors {doctors.length}</h2>
+            {/* <h2>Our Doctors {doctors.length}</h2>
             <Container>
                 <Grid container spacing={2}>
                     {
@@ -22,7 +22,7 @@ const Doctors = () => {
                         />)
                     }
                 </Grid>
-            </Container>
+            </Container> */}
         </div>
     );
 };

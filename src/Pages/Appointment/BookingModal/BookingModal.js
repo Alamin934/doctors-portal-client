@@ -21,46 +21,7 @@ const style = {
 
 const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSuccess }) => {
     const { name, time, price } = booking;
-    const { user } = useAuth();
 
-    const initialInfo = { patientName: user.displayName, email: user.email, phone: '' }
-    const [bookingInfo, setBookingInfo] = useState(initialInfo);
-
-    const handleOnBlur = (e) => {
-        const field = e.target.name;
-        const value = e.target.value;
-        const newInfo = { ...bookingInfo };
-        newInfo[field] = value;
-        setBookingInfo(newInfo);
-    }
-
-
-    const handleBookingSubmit = (e) => {
-        //Collect data
-        const appointment = {
-            ...bookingInfo,
-            time,
-            price,
-            serviceName: name,
-            date: date.toLocaleDateString()
-        }
-        fetch('https://shielded-sea-24899.herokuapp.com/appointment', {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(appointment)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.insertedId) {
-                    setBookingSuccess(true);
-                }
-            })
-
-        e.preventDefault();
-        handleCloseModal();
-    };
 
 
     return (
@@ -80,7 +41,7 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                     <Typography sx={{ color: '#1CC7C1', textAlign: 'center', mb: 2 }} id="transition-modal-title" variant="h6" component="div">
                         {name}
                     </Typography>
-                    <form onSubmit={handleBookingSubmit}>
+                    <form>
                         <TextField
                             disabled
                             label="Time"
@@ -93,10 +54,10 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             label="Your Name"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue={user?.displayName}
+                            defaultValue=""
                             size="small"
                             name="patientName"
-                            onBlur={handleOnBlur}
+
                         />
                         <TextField
                             label="Phone Number"
@@ -104,23 +65,20 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             id="outlined-size-small"
                             size="small"
                             name="phone"
-                            onBlur={handleOnBlur}
                         />
                         <TextField
                             label="Email"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue={user.email}
                             size="small"
                             name="email"
-                            onBlur={handleOnBlur}
                         />
                         <TextField
                             disabled
                             label="Date"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue={date.toDateString()}
+
                             size="small"
                         />
                         <Button type="submit" variant="contained">SUBMIT</Button>
