@@ -1,26 +1,47 @@
-import { Button, Container, Grid, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png';
 
 const Registar = () => {
+    const [registrationData, setRegistrationData] = React.useState({});
+    const { userRegistration, isLoading, user, authError } = useAuth();
+
+    const handleOnChange = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newRegistrationData = { ...registrationData };
+        newRegistrationData[field] = value;
+        setRegistrationData(newRegistrationData);
+    }
 
 
-    const handleLoginSubmit = (e) => {
+    const handleRegistrationSubmit = (e) => {
+        if (registrationData.password !== registrationData.password2) {
+            alert('password does not mathched');
+            return;
+        }
+        userRegistration(registrationData.email, registrationData.password);
         e.preventDefault();
     }
+
+    //Alert Hidden
+    // const alertHide = setTimeout(() => { document.getElementById('alert').style.display = 'none' }, 5000);
+
     return (
         <Container>
-            <Grid container spacing={2} sx={{ alignItems: 'center' }}>
+            <Grid container spacing={2} sx={{ alignItems: 'center', marginTop: '20px' }}>
                 <Grid item xs={12} md={6}>
                     <Typography variant="body1" gutterBottom>Registar</Typography>
-                    isLoading && <form onSubmit={handleLoginSubmit}>
+                    {!isLoading && <form onSubmit={handleRegistrationSubmit}>
                         <TextField
                             label="Your Name"
                             sx={{ width: '100%', mb: 2 }}
                             id="standard-basic"
                             variant="standard"
                             name="name"
+                            onChange={handleOnChange}
                         />
                         <TextField
                             label="Your Email"
@@ -29,6 +50,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="email"
+                            onChange={handleOnChange}
                         />
                         <TextField
                             label="Your Password"
@@ -37,6 +59,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="password"
+                            onChange={handleOnChange}
                         />
                         <TextField
                             label="ReType Your Password"
@@ -45,15 +68,17 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="password2"
+                            onChange={handleOnChange}
                         />
                         <Button type="submit" sx={{ width: '100%' }} variant="contained">Registar</Button>
+
                         <NavLink to="/login">
                             <Button variant="text">Already have an Account? Please Login</Button>
                         </NavLink>
-                    </form>
-                    {/* <CircularProgress />
-                    <Alert severity="success">User Registraion Successfully</Alert>
-                    <Alert severity="error"></Alert> */}
+                    </form>}
+                    {isLoading && <CircularProgress sx={{ textAlign: 'center', display: 'block' }} />}
+                    {user?.email && <Alert id="alert" severity="success">User Registraion Successfully</Alert>}
+                    {authError && <Alert id="alert" severity="error">{authError}</Alert>}
                 </Grid>
                 <Grid item xs={12} md={6}>
                     <img src={login} alt="" style={{ width: 'auto', height: '500px' }} />

@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
-import useAuth from '../../../hooks/useAuth';
 
 const style = {
     position: 'absolute',
@@ -20,9 +19,14 @@ const style = {
 };
 
 const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSuccess }) => {
-    const { name, time, price } = booking;
+    const { name, time } = booking;
 
+    const handleBookingSubmit = (e) => {
 
+        alert('submitting');
+        handleCloseModal();
+        e.preventDefault();
+    }
 
     return (
         <Modal
@@ -41,7 +45,7 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                     <Typography sx={{ color: '#1CC7C1', textAlign: 'center', mb: 2 }} id="transition-modal-title" variant="h6" component="div">
                         {name}
                     </Typography>
-                    <form>
+                    <form onSubmit={handleBookingSubmit}>
                         <TextField
                             disabled
                             label="Time"
@@ -78,8 +82,8 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             label="Date"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
-
                             size="small"
+                            defaultValue={date.toDateString()}
                         />
                         <Button type="submit" variant="contained">SUBMIT</Button>
                     </form>

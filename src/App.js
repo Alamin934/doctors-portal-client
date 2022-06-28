@@ -4,25 +4,23 @@ import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
 import Registar from './Pages/Login/Registar/Registar';
 import Appointment from './Pages/Appointment/Appointment/Appointment';
+import AuthProvider from './contexts/AuthProvider/AuthProvider';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
     <div className="App">
-      <Router>
-        <Routes>
-
-          <Route path="/" element={<Home />}></Route>
-
-          <Route path="/home" element={<Home />}></Route>
-
-          <Route path="/appointment" element={<Appointment />}></Route>
-
-          <Route path="/login" element={<Login />}></Route>
-
-          <Route path="/registar" element={<Registar />}></Route>
-
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/appointment" element={<PrivateRoute><Appointment /></PrivateRoute>} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/registar" element={<Registar />} />
+          </Routes>
+        </Router>
+      </AuthProvider>
     </div >
   );
 }

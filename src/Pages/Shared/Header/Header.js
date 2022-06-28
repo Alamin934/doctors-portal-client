@@ -7,8 +7,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { NavLink } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
 
 const Header = () => {
+    const { user, logOut } = useAuth();
 
     const style = {
         color: 'white',
@@ -36,18 +38,19 @@ const Header = () => {
                     <NavLink style={style} to="/appointment">
                         <Button color="inherit">Appointment</Button>
                     </NavLink>
-
-
-
-                    <NavLink style={style} to="/login">
-                        <Button color="inherit">Login</Button>
-                    </NavLink>
-                    {/* <Box>
-                        <NavLink style={style} to="/dashboard">
+                    {
+                        !user.email ?
+                            <NavLink style={style} to="/login">
+                                <Button color="inherit">Login</Button>
+                            </NavLink>
+                            :
+                            <Box>
+                                {/* <NavLink style={style} to="/dashboard">
                             <Button color="inherit">Dashboard</Button>
-                        </NavLink>
-                        <Button color="inherit">Logout</Button>
-                    </Box> */}
+                        </NavLink> */}
+                                <Button color="inherit" onClick={logOut}>Logout</Button>
+                            </Box>
+                    }
                 </Toolbar>
             </AppBar>
         </Box>
