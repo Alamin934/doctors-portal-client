@@ -49,6 +49,7 @@ const Header = () => {
                             <Button color="inherit">Dashboard</Button>
                         </NavLink> */}
                                 <Button color="inherit" onClick={logOut}>Logout</Button>
+                                <span sx={{ marginLeft: '10px' }}>{user?.displayName}</span>
                             </Box>
                     }
                 </Toolbar>

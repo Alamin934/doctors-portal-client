@@ -1,14 +1,15 @@
 import { Alert, Button, CircularProgress, Container, Grid, TextField, Typography } from '@mui/material';
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import login from '../../../images/login.png';
 
 const Registar = () => {
     const [registrationData, setRegistrationData] = React.useState({});
     const { userRegistration, isLoading, user, authError } = useAuth();
+    let navigate = useNavigate();
 
-    const handleOnChange = e => {
+    const handleOnBlur = e => {
         const field = e.target.name;
         const value = e.target.value;
         const newRegistrationData = { ...registrationData };
@@ -22,7 +23,7 @@ const Registar = () => {
             alert('password does not mathched');
             return;
         }
-        userRegistration(registrationData.email, registrationData.password);
+        userRegistration(registrationData.email, registrationData.password, registrationData.name, navigate);
         e.preventDefault();
     }
 
@@ -41,7 +42,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="name"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             label="Your Email"
@@ -50,7 +51,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             label="Your Password"
@@ -59,7 +60,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <TextField
                             label="ReType Your Password"
@@ -68,7 +69,7 @@ const Registar = () => {
                             id="standard-basic"
                             variant="standard"
                             name="password2"
-                            onChange={handleOnChange}
+                            onBlur={handleOnBlur}
                         />
                         <Button type="submit" sx={{ width: '100%' }} variant="contained">Registar</Button>
 

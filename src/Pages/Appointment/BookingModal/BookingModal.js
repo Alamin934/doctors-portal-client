@@ -5,6 +5,7 @@ import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
 import { Button, TextField } from '@mui/material';
+import useAuth from '../../../hooks/useAuth';
 
 const style = {
     position: 'absolute',
@@ -20,6 +21,7 @@ const style = {
 
 const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSuccess }) => {
     const { name, time } = booking;
+    const { user } = useAuth();
 
     const handleBookingSubmit = (e) => {
 
@@ -58,17 +60,10 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             label="Your Name"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
-                            defaultValue=""
+                            defaultValue={user.displayName}
                             size="small"
                             name="patientName"
 
-                        />
-                        <TextField
-                            label="Phone Number"
-                            sx={{ width: '100%', mb: 2 }}
-                            id="outlined-size-small"
-                            size="small"
-                            name="phone"
                         />
                         <TextField
                             label="Email"
@@ -76,6 +71,14 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             id="outlined-size-small"
                             size="small"
                             name="email"
+                            defaultValue={user.email}
+                        />
+                        <TextField
+                            label="Phone Number"
+                            sx={{ width: '100%', mb: 2 }}
+                            id="outlined-size-small"
+                            size="small"
+                            name="phone"
                         />
                         <TextField
                             disabled

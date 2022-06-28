@@ -6,7 +6,7 @@ import login from '../../../images/login.png';
 
 const Login = () => {
     const [loginData, setLoginData] = React.useState({});
-    const { user, userLogin, isLoading, authError } = useAuth();
+    const { user, userLogin, isLoading, authError, signInWithGoogle } = useAuth();
     let location = useLocation();
     let navigate = useNavigate();
 
@@ -24,6 +24,10 @@ const Login = () => {
         e.preventDefault();
     }
 
+    const handleGoogleLogin = () => {
+        signInWithGoogle(location, navigate);
+    }
+
     return (
         <Container>
             <Grid container spacing={2} sx={{ alignItems: 'center' }}>
@@ -37,7 +41,7 @@ const Login = () => {
                             id="standard-basic"
                             variant="standard"
                             name="email"
-                            onChange={handleOnChange}
+                            onBlur={handleOnChange}
                         />
                         <TextField
                             label="Your Password"
@@ -46,7 +50,7 @@ const Login = () => {
                             id="standard-basic"
                             variant="standard"
                             name="password"
-                            onChange={handleOnChange}
+                            onBlur={handleOnChange}
                         />
                         <Button type="submit" sx={{ width: '100%' }} variant="contained">Login</Button>
                         <NavLink to="/registar">
@@ -57,7 +61,7 @@ const Login = () => {
                         {authError && <Alert severity="error">{authError}</Alert>}
                     </form>
                     <p>-------------------</p>
-                    <Button variant="contained">Google Sign In</Button>
+                    <Button variant="contained" onClick={handleGoogleLogin}>Google Sign In</Button>
 
                 </Grid>
                 <Grid item xs={12} md={6}>
