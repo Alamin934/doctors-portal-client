@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -20,8 +20,19 @@ const style = {
 };
 
 const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSuccess }) => {
-    const { name, time } = booking;
     const { user } = useAuth();
+    const { name, time } = booking;
+    const defaultInfo = { patientName: user.displayName, email: user.email, phone: '' }
+    const [bookingInfo, setBookingInfo] = useState(defaultInfo);
+
+
+    const handleOnBlur = e => {
+        const field = e.target.name;
+        const value = e.target.value;
+        const newBookingInfo = { ...bookingInfo };
+        newBookingInfo[field] = value;
+        setBookingInfo(newBookingInfo);
+    }
 
     const handleBookingSubmit = (e) => {
 
@@ -61,6 +72,7 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
                             defaultValue={user.displayName}
+                            onBlur={handleOnBlur}
                             size="small"
                             name="patientName"
 
@@ -69,14 +81,16 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
                             label="Email"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
+                            defaultValue={user.email}
+                            onBlur={handleOnBlur}
                             size="small"
                             name="email"
-                            defaultValue={user.email}
                         />
                         <TextField
                             label="Phone Number"
                             sx={{ width: '100%', mb: 2 }}
                             id="outlined-size-small"
+                            onBlur={handleOnBlur}
                             size="small"
                             name="phone"
                         />
