@@ -45,9 +45,9 @@ const Header = () => {
                             </NavLink>
                             :
                             <Box>
-                                {/* <NavLink style={style} to="/dashboard">
-                            <Button color="inherit">Dashboard</Button>
-                        </NavLink> */}
+                                <NavLink style={style} to="/dashboard">
+                                    <Button color="inherit">Dashboard</Button>
+                                </NavLink>
                                 <Button color="inherit" onClick={logOut}>Logout</Button>
                                 <span sx={{ marginLeft: '10px' }}>{user?.displayName}</span>
                             </Box>

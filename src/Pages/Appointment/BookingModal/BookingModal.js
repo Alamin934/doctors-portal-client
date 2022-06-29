@@ -33,11 +33,29 @@ const BookingModal = ({ openModal, handleCloseModal, booking, date, setBookingSu
         newBookingInfo[field] = value;
         setBookingInfo(newBookingInfo);
     }
-
     const handleBookingSubmit = (e) => {
+        //Collect Data
+        const appointment = {
+            ...bookingInfo,
+            time,
+            serviceName: name,
+            date: date.toLocaleDateString()
+        }
 
-        alert('submitting');
-        handleCloseModal();
+        //Send Data to Server
+        fetch('http://localhost:5000/appointments', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(appointment)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    setBookingSuccess(true);
+                    handleCloseModal();
+                    setTimeout(() => { setBookingSuccess(false) }, 5000);
+                }
+            })
         e.preventDefault();
     }
 
