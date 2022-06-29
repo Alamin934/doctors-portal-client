@@ -20,12 +20,14 @@ import { NavLink } from "react-router-dom";
 import { Grid } from '@mui/material';
 import Calender from '../../Shared/Calender/Calender';
 import Appointments from '../Appointments/Appointments';
+import { useState } from 'react';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [date, setDate] = useState(new Date());
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -125,11 +127,11 @@ function Dashboard(props) {
                 <Toolbar />
                 <Box>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} md={6}>
-                            <Calender></Calender>
+                        <Grid item sx={12} md={4}>
+                            <Calender date={date} setDate={setDate}></Calender>
                         </Grid>
-                        <Grid item xs={12} md={6}>
-                            <Appointments></Appointments>
+                        <Grid item sx={12} md={8}>
+                            <Appointments date={date}></Appointments>
                         </Grid>
                     </Grid>
                 </Box>
