@@ -45,7 +45,7 @@ const Header = () => {
                             </NavLink>
                             :
                             <Box>
-                                <NavLink style={style} to="/dashboard">
+                                <NavLink style={style} to="/dashboard/dashboardHome">
                                     <Button color="inherit">Dashboard</Button>
                                 </NavLink>
                                 <Button color="inherit" onClick={logOut}>Logout</Button>

@@ -16,18 +16,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { NavLink } from "react-router-dom";
-import { Grid } from '@mui/material';
-import Calender from '../../Shared/Calender/Calender';
-import Appointments from '../Appointments/Appointments';
-import { useState } from 'react';
+import { NavLink, Outlet } from "react-router-dom";
+import { Button } from '@mui/material';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [date, setDate] = useState(new Date());
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -41,6 +37,20 @@ function Dashboard(props) {
                 </Typography>
             </Toolbar>
             <Divider />
+
+            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="/appointment">
+                <Button color="inherit">Appointment</Button>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="dashboardHome">
+                <Button color="inherit">Dashboard</Button>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="makeAdmin">
+                <Button color="inherit">Make Admin</Button>
+            </NavLink>
+            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="addDoctor">
+                <Button color="inherit">Add Doctor</Button>
+            </NavLink>
+
             {/* =====  Dashboad Side Bar Item List ===== */}
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
@@ -125,16 +135,7 @@ function Dashboard(props) {
                 sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
             >
                 <Toolbar />
-                <Box>
-                    <Grid container spacing={2}>
-                        <Grid item sx={12} md={4}>
-                            <Calender date={date} setDate={setDate}></Calender>
-                        </Grid>
-                        <Grid item sx={12} md={8}>
-                            <Appointments date={date}></Appointments>
-                        </Grid>
-                    </Grid>
-                </Box>
+                <Outlet />
             </Box>
         </Box>
     );

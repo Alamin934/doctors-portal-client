@@ -1,4 +1,4 @@
-import { TextField, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import React from 'react';
 import { useState, useEffect } from 'react';
 import useAuth from '../../../hooks/useAuth';
@@ -48,6 +48,7 @@ const Appointments = ({ date }) => {
                                 <TableCell align="right">{row.serviceName}</TableCell>
                                 <TableCell align="right">
                                     <select name="action" id="action">
+                                        <option value="action">Action</option>
                                         <option value="Update">Visited</option>
                                         <option value="Delete">Cancel</option>
                                     </select>
