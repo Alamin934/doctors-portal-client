@@ -10,6 +10,7 @@ import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
 import DashboardHome from './Pages/Dashboard/DashboardHome/DashboardHome';
 import MakeAdmin from './Pages/Dashboard/MakeAdmin/MakeAdmin';
 import AddDoctor from './Pages/Dashboard/AddDoctor/AddDoctor';
+import AdminRoute from './Pages/Login/AdminRoute/AdminRoute';
 
 function App() {
   return (
@@ -23,8 +24,8 @@ function App() {
 
             <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>}>
               <Route path="dashboardHome" element={<DashboardHome />} />
-              <Route path="makeAdmin" element={<MakeAdmin />} />
-              <Route path="addDoctor" element={<AddDoctor />} />
+              <Route path="makeAdmin" element={<AdminRoute><MakeAdmin /></AdminRoute>} />
+              <Route path="addDoctor" element={<AdminRoute><AddDoctor /></AdminRoute>} />
             </Route>
 
             <Route path="/login" element={<Login />} />

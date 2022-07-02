@@ -18,12 +18,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { NavLink, Outlet } from "react-router-dom";
 import { Button } from '@mui/material';
+import useAuth from '../../../hooks/useAuth';
 
 const drawerWidth = 200;
 
 function Dashboard(props) {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
+    const { admin } = useAuth();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -44,12 +46,14 @@ function Dashboard(props) {
             <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="dashboardHome">
                 <Button color="inherit">Dashboard</Button>
             </NavLink>
-            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="makeAdmin">
-                <Button color="inherit">Make Admin</Button>
-            </NavLink>
-            <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="addDoctor">
-                <Button color="inherit">Add Doctor</Button>
-            </NavLink>
+            {admin && <Box>
+                <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="makeAdmin">
+                    <Button color="inherit">Make Admin</Button>
+                </NavLink>
+                <NavLink style={{ textDecoration: 'none', color: '#1976D2', fontWeight: 'bold' }} to="addDoctor">
+                    <Button color="inherit">Add Doctor</Button>
+                </NavLink>
+            </Box>}
 
             {/* =====  Dashboad Side Bar Item List ===== */}
             <List>
