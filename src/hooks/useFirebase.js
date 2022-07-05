@@ -10,7 +10,7 @@ const useFirebase = () => {
     const GoogleProvider = new GoogleAuthProvider();
 
     const [user, setUser] = useState({});
-    const [admin, setAmdin] = useState(false);
+    const [admin, setAdmin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
     const [token, setToken] = useState('');
@@ -70,7 +70,7 @@ const useFirebase = () => {
 
     //Obserber user
     useEffect(() => {
-        const unsubscribed = onAuthStateChanged(auth, (user) => {
+        const unsubscribed = onAuthStateChanged(auth, (user, admin) => {
             if (user) {
                 setUser(user);
                 getIdToken(user)
@@ -89,7 +89,7 @@ const useFirebase = () => {
     useEffect(() => {
         fetch(`http://localhost:5000/users/${user.email}`)
             .then(res => res.json())
-            .then(data => setAmdin(data.admin))
+            .then(data => setAdmin(data.admin))
     }, [user.email])
 
     const logOut = () => {
